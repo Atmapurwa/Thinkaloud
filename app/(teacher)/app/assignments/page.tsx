@@ -12,11 +12,11 @@ const Assignments = () => {
                 <div className="flex items-center gap-2">
                     <SidebarTrigger className="-ml-1 text-bodyText selector1" />
                     <Separator orientation="vertical" className="mr-2 h-4" />
-                    <h3 className='font-bold'>Your Assignments</h3>
+                    <h3 className='font-bold'>Assignments</h3>
                 </div>
             </header>
 
-            <div className="@container/main flex flex-1 flex-col gap-2">
+            <div className="@container/main flex flex-1 flex-col gap-2 overflow-y-scroll py-6">
                 <DataTable data={data} />
             </div>
 
