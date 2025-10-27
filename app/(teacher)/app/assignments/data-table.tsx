@@ -88,7 +88,10 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-import { ExternalLink } from "lucide-react"
+import { ExternalLink, FileText, SquarePen } from "lucide-react"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Item, ItemActions, ItemContent, ItemDescription, ItemFooter, ItemHeader, ItemMedia, ItemTitle } from "@/components/ui/item"
+import Link from "next/link"
 
 export const schema = z.object({
     id: z.number(),
@@ -309,10 +312,57 @@ export function DataTable({
                                 })}
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <Button variant="outline" size="sm">
-                        <IconPlus />
-                        <span className="hidden lg:inline">Add Assignment</span>
-                    </Button>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button variant="outline" size="sm">
+                                <IconPlus />
+                                <span className="hidden lg:inline">Add Assignment</span>
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Create New Assignment</DialogTitle>
+                                <DialogDescription>
+                                    Choose how you want to create your new assignment.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-y-4">
+                                <Item variant="outline">
+                                    <ItemMedia variant={"icon"}>
+                                        <SquarePen />
+                                    </ItemMedia>
+                                    <ItemContent>
+                                        <ItemTitle>From Scratch</ItemTitle>
+                                        <ItemDescription>
+                                            Create manually by adding questions and specifications.
+                                        </ItemDescription>
+                                    </ItemContent>
+                                    <ItemActions>
+                                        <Button variant="outline" size="sm">
+                                            <Link href="/app/assignments/create/">Create from Scratch</Link>
+                                        </Button>
+                                    </ItemActions>
+                                </Item>
+                                <Item variant="outline">
+                                    <ItemMedia variant={"icon"}>
+                                        <FileText />
+                                    </ItemMedia>
+                                    <ItemContent>
+                                        <ItemTitle>From PDF</ItemTitle>
+                                        <ItemDescription>
+                                            Upload a PDF to automatically generate questions and specifications.
+                                        </ItemDescription>
+                                    </ItemContent>
+                                    <ItemActions>
+                                        <Button variant="outline" size="sm" asChild>
+                                            <Link href="/app/assignments/create/pdf">Create from PDF</Link>
+                                        </Button>
+                                    </ItemActions>
+                                </Item>
+                            </div>
+                        </DialogContent>
+                    </Dialog>
+
                 </div>
             </div>
 
