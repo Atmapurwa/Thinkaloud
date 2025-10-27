@@ -2,6 +2,9 @@ import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import React from 'react'
 
+import data from "./data.json"
+import { DataTable } from './data-table'
+
 const Materials = () => {
     return (
         <section className="h-full flex flex-col mx-auto w-full overflow-hidden max-h-dvh">
@@ -13,8 +16,8 @@ const Materials = () => {
                 </div>
             </header>
 
-            <div>
-
+            <div className="@container/main flex flex-1 flex-col gap-2 overflow-y-scroll py-6">
+                <DataTable data={data} />
             </div>
 
         </section>
