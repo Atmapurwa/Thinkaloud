@@ -140,19 +140,25 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
         accessorKey: "responses",
         header: "Responses",
         cell: ({ row }) => (
-            <Button
-                variant="default"
-                size="sm"
-                disabled={row.original.responses === 0}
-            >
-                {row.original.responses != 0 ? (
-                    `View ${row.original.responses} `
-                ) : (
-                    "No "
-                )}
-                Responses
-            </Button>
-
+            row.original.responses === 0 ? (
+                <Button
+                    variant="default"
+                    size="sm"
+                    disabled
+                >
+                    No Responses
+                </Button>
+            ) : (
+                <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                >
+                    <Link href={`/app/assignments/${row.original.id}`}>
+                        View {row.original.responses} Responses
+                    </Link>
+                </Button>
+            )
         ),
     },
     {
