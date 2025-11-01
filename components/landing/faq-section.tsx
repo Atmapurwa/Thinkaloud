@@ -71,9 +71,7 @@ export default function FAQSection() {
                         Frequently Asked Questions
                     </div>
                     <div className="w-full text-[#605A57] text-base font-normal leading-7 font-sans">
-                        Explore your data, build your dashboard,
-                        <br className="hidden md:block" />
-                        bring your team together.
+                        Everything you need to know about Thinkaloud
                     </div>
                 </div>
 

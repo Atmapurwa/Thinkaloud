@@ -1,5 +1,8 @@
 "use client"
 
+import Link from "next/link"
+import { Button } from "../ui/button"
+
 export default function CTASection() {
     return (
         <div className="w-full relative overflow-hidden flex flex-col justify-center items-center gap-2">
@@ -24,22 +27,20 @@ export default function CTASection() {
                 <div className="w-full max-w-[586px] px-6 py-5 md:py-8 overflow-hidden rounded-lg flex flex-col justify-start items-center gap-6 relative z-20">
                     <div className="self-stretch flex flex-col justify-start items-start gap-3">
                         <div className="self-stretch text-center flex justify-center flex-col text-[#49423D] text-3xl md:text-5xl font-semibold leading-tight md:leading-[56px] font-sans tracking-tight">
-                            Ready to transform your business?
+                            Start Building Confident Learners Today
                         </div>
                         <div className="self-stretch text-center text-[#605A57] text-base leading-7 font-sans font-medium">
-                            Join thousands of businesses streamlining their operations,
+                            Reading and thinking should feel natural for everyone.
                             <br />
-                            managing schedules, and growing with data-driven insights.
+                            Be part of the movement for inclusive learning.
                         </div>
                     </div>
                     <div className="w-full max-w-[497px] flex flex-col justify-center items-center gap-12">
                         <div className="flex justify-start items-center gap-4">
-                            <div className="h-10 px-12 py-[6px] relative bg-[#37322F] shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] overflow-hidden rounded-full flex justify-center items-center cursor-pointer hover:bg-[#2A2520] transition-colors">
-                                <div className="w-44 h-[41px] absolute left-0 top-0 bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.10)] mix-blend-multiply"></div>
-                                <div className="flex flex-col justify-center text-white text-[13px] font-medium leading-5 font-sans">
-                                    Start for free
-                                </div>
-                            </div>
+                            <Button asChild size={"lg"}>
+                                <Link className="md:text-lg" href="/login">Start for Free</Link>
+                            </Button>
+
                         </div>
                     </div>
                 </div>

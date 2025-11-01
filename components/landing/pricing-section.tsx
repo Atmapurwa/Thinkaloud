@@ -45,14 +45,14 @@ export default function PricingSection() {
 
                     {/* Title */}
                     <div className="self-stretch text-center flex justify-center flex-col text-[#49423D] text-3xl md:text-5xl font-semibold leading-tight md:leading-[60px] font-sans tracking-tight">
-                        Choose the perfect plan for your business
+                        Pick the best plan for your students
                     </div>
 
                     {/* Description */}
                     <div className="self-stretch text-center text-[#605A57] text-base font-normal leading-7 font-sans">
-                        Scale your operations with flexible pricing that grows with your team.
+                        Designed for schools, families, and learning programs.
                         <br />
-                        Start free, upgrade when you're ready.
+                        bridges accessibility gaps through AI-powered reading, conversation, and comprehension tools.
                     </div>
                 </div>
             </div>
