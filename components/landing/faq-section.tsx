@@ -9,34 +9,34 @@ interface FAQItem {
 
 const faqData: FAQItem[] = [
     {
-        question: "What is Brillance and who is it for?",
+        question: "What is Thinkaloud?",
         answer:
-            "Brillance is a comprehensive billing automation platform designed for businesses that need custom contract management. It's perfect for SaaS companies, service providers, and enterprises looking to streamline their billing processes.",
+            "Thinkaloud is an AI-powered reading and voice learning platform that helps dyslexic and diverse learners read, listen, and think critically through interactive, accessible technology.",
     },
     {
-        question: "How does the custom contract billing work?",
+        question: "Who can use this app?",
         answer:
-            "Our platform automatically processes your custom contracts, calculates billing amounts based on your specific terms, and generates invoices. You can set up complex pricing structures, usage-based billing, and custom billing cycles.",
+            "Our platform is designed for students, educators, and schools especially those supporting learners with dyslexia, reading challenges, or diverse learning needs.",
     },
     {
-        question: "Can I integrate Brillance with my existing tools?",
+        question: "How does the AI reading support work?",
         answer:
-            "Yes! Brillance integrates seamlessly with popular CRM systems, accounting software, and payment processors. We support APIs and webhooks for custom integrations with your existing workflow.",
+            "The AI reads text aloud with natural voices, highlights words in sync, and offers comprehension questions or real-time voice interactions to improve understanding and engagement.",
     },
     {
-        question: "What kind of support do you provide?",
+        question: "Can teachers create their own reading and speaking activities?",
         answer:
-            "We offer 24/7 customer support, dedicated account managers for enterprise clients, comprehensive documentation, and onboarding assistance to help you get started quickly.",
+            "Yes! Educators can easily create, assign, and assess interactive reading and conversation activities with AI-generated feedback.",
     },
     {
-        question: "Is my data secure with Brillance?",
+        question: "Is it accessible for dyslexic or visually impaired users?",
         answer:
-            "Absolutely. We use enterprise-grade security measures including end-to-end encryption, SOC 2 compliance, and regular security audits. Your data is stored in secure, redundant data centers.",
+            "Yes. The platform includes dyslexia-friendly fonts, customizable color contrast, word-by-word highlighting, and full text-to-speech and voice input support.",
     },
     {
-        question: "How do I get started with Brillance?",
+        question: "What is included in the free plan?",
         answer:
-            "Getting started is simple! Sign up for our free trial, connect your existing systems, and our onboarding team will help you set up your first custom billing workflow within 24 hours.",
+            "The Starter plan includes core AI reading features such as read & listen mode, highlighting, and basic accessibility tools. Perfect for trying the app before upgrading to professional or enterprise features.",
     },
 ]
 
@@ -67,7 +67,7 @@ export default function FAQSection() {
             <div className="flex-1 px-4 md:px-12 py-16 md:py-20 flex flex-col lg:flex-row justify-start items-start gap-6 lg:gap-12">
                 {/* Left Column - Header */}
                 <div className="w-full lg:flex-1 flex flex-col justify-center items-start gap-4 lg:py-5">
-                    <div className="w-full flex flex-col justify-center text-[#49423D] font-semibold leading-tight md:leading-[44px] font-sans text-4xl tracking-tight">
+                    <div className="w-full flex flex-col justify-center text-[#49423D] font-semibold leading-tight md:leading-11 font-sans text-4xl tracking-tight">
                         Frequently Asked Questions
                     </div>
                     <div className="w-full text-[#605A57] text-base font-normal leading-7 font-sans">

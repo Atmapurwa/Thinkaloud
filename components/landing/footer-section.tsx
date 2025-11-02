@@ -68,7 +68,7 @@ export default function FooterSection() {
                     {/* Product Column */}
 
                     {/* Product Column */}
-                    <div className="flex flex-col justify-start items-start gap-3 flex-1 min-w-[120px]">
+                    {/* <div className="flex flex-col justify-start items-start gap-3 flex-1 min-w-[120px]">
                         <div className="self-stretch text-[rgba(73,66,61,0.50)] text-sm font-medium leading-5 font-sans">
                             Product
                         </div>
@@ -89,7 +89,7 @@ export default function FooterSection() {
                                 Multi-Agent Coding
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Company Column */}
                     <div className="flex flex-col justify-start items-start gap-3 flex-1 min-w-[120px]">
@@ -97,15 +97,6 @@ export default function FooterSection() {
                         <div className="flex flex-col justify-center items-start gap-2">
                             <div className="text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
                                 About us
-                            </div>
-                            <div className="text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
-                                Our team
-                            </div>
-                            <div className="text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
-                                Careers
-                            </div>
-                            <div className="text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
-                                Brand
                             </div>
                             <div className="text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
                                 Contact
@@ -121,14 +112,14 @@ export default function FooterSection() {
                                 Terms of use
                             </div>
                             <div className="self-stretch text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
-                                API Reference
+                                Privacy Policy
                             </div>
-                            <div className="self-stretch text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
+                            {/* <div className="self-stretch text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
                                 Documentation
-                            </div>
-                            <div className="self-stretch text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
+                            </div> */}
+                            {/* <div className="self-stretch text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
                                 Community
-                            </div>
+                            </div> */}
                             <div className="self-stretch text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors">
                                 Support
                             </div>
