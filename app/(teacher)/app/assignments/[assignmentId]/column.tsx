@@ -42,10 +42,10 @@ export const columns: ColumnDef<StudentResponses>[] = [
                 variant="outline"
                 size="sm"
             >
-                {/* <Link href={`/app/assignments/[assignmentID]/responses/[${row.original.view}`}> */}
-                {/* View Responses */}
-                {/* </Link> */}
-                View Response
+                <a href={`/app/assignments/assignmentID/responses/${row.original.view}`}>
+                    View Responses
+                </a>
+                {/* View Response */}
             </Button>
 
         ),

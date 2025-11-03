@@ -15,9 +15,9 @@ import data from "./data.json"
 export default async function Page({
     params,
 }: {
-    params: Promise<{ assignmentId: string }>
+    params: Promise<{ assignmentID: string }>
 }) {
-    const { assignmentId } = await params;
+    const { assignmentID } = await params;
 
     return (
         <section className="h-full flex flex-col mx-auto w-full overflow-hidden max-h-dvh">
@@ -31,7 +31,7 @@ export default async function Page({
 
             <div className="@container/main flex flex-1 flex-col gap-6 overflow-auto md:overflow-hidden p-6">
                 <div className='flex justify-between'>
-                    <h2 className="font-bold text-2xl">{assignmentId} Responses</h2>
+                    <h2 className="font-bold text-2xl">{assignmentID} Responses</h2>
                     <Button variant="destructive" asChild>
                         <Link href="/app/assignments">Back to All Assignments</Link>
                     </Button>
