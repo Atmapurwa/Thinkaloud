@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+
 import {
     closestCenter,
     DndContext,
@@ -52,6 +53,7 @@ import {
 import { toast } from "sonner"
 import { z } from "zod"
 
+
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -87,18 +89,19 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {
+  AlertDialog,
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog"
 
-import { ExternalLink, FileText, SquarePen } from "lucide-react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Item, ItemActions, ItemContent, ItemDescription, ItemFooter, ItemHeader, ItemMedia, ItemTitle } from "@/components/ui/item"
-import Link from "next/link"
+import { ExternalLink } from "lucide-react"
+import { AlertUploadContent } from "./alert-upload"
 
 export const schema = z.object({
     id: z.number(),
     title: z.string(),
     // createdAt: z.date().or(z.string()),
     createdAt: z.date().safeParse(new Date()),
-    responses: z.number(),
 })
 
 // Create a separate component for the drag handle
@@ -135,31 +138,6 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     {
         accessorKey: "createdAt",
         header: "Created at"
-    },
-    {
-        accessorKey: "responses",
-        header: "Responses",
-        cell: ({ row }) => (
-            row.original.responses === 0 ? (
-                <Button
-                    variant="default"
-                    size="sm"
-                    disabled
-                >
-                    No Responses
-                </Button>
-            ) : (
-                <Button
-                    asChild
-                    variant="outline"
-                    size="sm"
-                >
-                    <Link href={`/app/assignments/${row.original.id}`}>
-                        View {row.original.responses} Responses
-                    </Link>
-                </Button>
-            )
-        ),
     },
     {
         id: "actions",
@@ -283,7 +261,7 @@ export function DataTable({
         >
 
             <div className="flex items-center justify-between px-4 lg:px-6">
-                <h2 className="font-bold text-2xl">Your Assignments</h2>
+                <h2 className="font-bold text-2xl">Your Materials</h2>
                 <div className="flex items-center gap-2">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -318,57 +296,18 @@ export function DataTable({
                                 })}
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button variant="outline" size="sm">
-                                <IconPlus />
-                                <span className="hidden lg:inline">Add Assignment</span>
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                            <DialogHeader>
-                                <DialogTitle>Create New Assignment</DialogTitle>
-                                <DialogDescription>
-                                    Choose how you want to create your new assignment.
-                                </DialogDescription>
-                            </DialogHeader>
-                            <div className="grid gap-y-4">
-                                <Item variant="outline">
-                                    <ItemMedia variant={"icon"}>
-                                        <SquarePen />
-                                    </ItemMedia>
-                                    <ItemContent>
-                                        <ItemTitle>From Scratch</ItemTitle>
-                                        <ItemDescription>
-                                            Create manually by adding questions and specifications.
-                                        </ItemDescription>
-                                    </ItemContent>
-                                    <ItemActions>
-                                        <Button variant="outline" size="sm">
-                                            <Link href="/app/assignments/create/">Create from Scratch</Link>
-                                        </Button>
-                                    </ItemActions>
-                                </Item>
-                                <Item variant="outline">
-                                    <ItemMedia variant={"icon"}>
-                                        <FileText />
-                                    </ItemMedia>
-                                    <ItemContent>
-                                        <ItemTitle>From PDF</ItemTitle>
-                                        <ItemDescription>
-                                            Upload a PDF to automatically generate questions and specifications.
-                                        </ItemDescription>
-                                    </ItemContent>
-                                    <ItemActions>
-                                        <Button variant="outline" size="sm" asChild>
-                                            <Link href="/app/assignments/create/pdf">Create from PDF</Link>
-                                        </Button>
-                                    </ItemActions>
-                                </Item>
-                            </div>
-                        </DialogContent>
-                    </Dialog>
+                    <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button variant="outline" size="sm">
+                            <IconPlus />
+                            <span className="hidden lg:inline">Add Materials</span>
+                        </Button>
+                    </AlertDialogTrigger>
 
+                    {/* //?ALERT CONTENT */}
+                    <AlertUploadContent/>
+                    
+                    </AlertDialog>
                 </div>
             </div>
 
