@@ -16,9 +16,11 @@ const Assignments = () => {
                 </div>
             </header>
 
-            <div className="@container/main flex flex-1 flex-col gap-2 overflow-y-scroll py-6">
+            <div className='overflow-y-auto mb-6'>
                 <DataTable data={data} />
             </div>
+            {/* <div className="@container/main flex flex-1 flex-col gap-2 overflow-y-scroll py-6">
+            </div> */}
 
         </section>
     )
