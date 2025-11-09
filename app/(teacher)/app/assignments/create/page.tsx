@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -46,6 +46,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Spinner } from '@/components/ui/spinner'
+import { createClient } from '@/lib/client'
 
 // 🧱 SCHEMA -----------------------------------------------------------------
 
@@ -162,9 +163,13 @@ function DraggableSpec({
   )
 }
 
+
+
+
 // 🧩 MAIN PAGE -------------------------------------------------------------
 
 const Page = () => {
+  const supabase = createClient();
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [newQuestion, setNewQuestion] = useState('')
   const [newSpec, setNewSpec] = useState('')
@@ -174,6 +179,34 @@ const Page = () => {
   const [specs, setSpecs] = useState<
     { id: number; order: number; specification: string }[]
   >([])
+
+  // HELPER -----------------------------
+  const authenticateAndSetUser = async (): Promise<string> => {
+        try {
+            const { data, error } = await supabase.auth.getUser();
+
+            if (error || !data?.user) {
+                console.error("Authentication error:", error);
+                return "";
+            }
+
+            const userId = data.user.id;
+
+            return userId;
+        } catch (err) {
+            console.error("Auth error:", err);
+            return "";
+        }
+    };
+
+  useEffect(() => {
+    const init = async () => {
+      const userId = await authenticateAndSetUser();
+      console.log("Authenticated user ID:");
+      console.log(userId);
+    };
+    init();
+  }, []);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
