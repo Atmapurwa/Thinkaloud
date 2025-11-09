@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -47,6 +46,8 @@ import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Spinner } from '@/components/ui/spinner'
 import { createClient } from '@/lib/client'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 // 🧱 SCHEMA -----------------------------------------------------------------
 
@@ -170,9 +171,13 @@ function DraggableSpec({
 
 const Page = () => {
   const supabase = createClient();
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [newQuestion, setNewQuestion] = useState('')
   const [newSpec, setNewSpec] = useState('')
+  const [userId, setUserId] = useState<string>('')
+  const [nextQuestionId, setNextQuestionId] = useState(1)
+  const [nextSpecId, setNextSpecId] = useState(1)
   const [data, setData] = useState<
     { id: number; order: number; question: string; responses: number }[]
   >([])
@@ -186,15 +191,17 @@ const Page = () => {
             const { data, error } = await supabase.auth.getUser();
 
             if (error || !data?.user) {
-                console.error("Authentication error:", error);
+                toast.error("Authentication failed. Please login again.");
                 return "";
             }
 
             const userId = data.user.id;
+            setUserId(userId);
 
             return userId;
         } catch (err) {
             console.error("Auth error:", err);
+            toast.error("Authentication error occurred.");
             return "";
         }
     };
@@ -202,10 +209,10 @@ const Page = () => {
   useEffect(() => {
     const init = async () => {
       const userId = await authenticateAndSetUser();
-      console.log("Authenticated user ID:");
-      console.log(userId);
+      console.log("Authenticated user ID:", userId);
     };
     init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sensors = useSensors(
@@ -259,12 +266,13 @@ const Page = () => {
     setData((prev) => [
       ...prev,
       {
-        id: Date.now(),
+        id: nextQuestionId,
         order: prev.length + 1,
         question: text,
         responses: 0,
       },
     ])
+    setNextQuestionId((prev) => prev + 1)
     setNewQuestion('')
   }
 
@@ -272,8 +280,9 @@ const Page = () => {
     if (!text.trim()) return
     setSpecs((prev) => [
       ...prev,
-      { id: Date.now(), order: prev.length + 1, specification: text },
+      { id: nextSpecId, order: prev.length + 1, specification: text },
     ])
+    setNextSpecId((prev) => prev + 1)
     setNewSpec('')
   }
 
@@ -293,6 +302,70 @@ const Page = () => {
     )
   }
 
+  // 🧩 SUBMIT HANDLER ------------------------------------------------------
+  const onSubmit = async (values: { title: string; description: string }) => {
+    if (!userId) {
+      toast.error('User not authenticated. Please login again.');
+      return;
+    }
+
+    if (data.length === 0) {
+      toast.error('Please add at least one question.');
+      return;
+    }
+
+    if (specs.length === 0) {
+      toast.error('Please add at least one specification.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Prepare questions array
+      const questionsArray = data.map((q) => ({
+        question: q.question,
+        order: q.order,
+      }));
+
+      // Prepare specifications array
+      const specificationsArray = specs.map((s) => ({
+        specification: s.specification,
+        order: s.order,
+      }));
+
+      // Insert into database
+      const { data: insertedData, error } = await supabase
+        .from('assignments')
+        .insert({
+          title: values.title,
+          description: values.description,
+          instructor_id: userId,
+          question: questionsArray,
+          specification: specificationsArray,
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Error inserting assignment:', error);
+        toast.error(`Failed to create assignment: ${error.message}`);
+        return;
+      }
+
+      toast.success('Assignment created successfully!');
+      console.log('Inserted assignment:', insertedData);
+
+      // Redirect to assignments page
+      router.push('/app/assignments');
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      toast.error('An unexpected error occurred.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // 🧩 RENDER --------------------------------------------------------------
   return (
     <section className="h-full flex flex-col mx-auto w-full overflow-hidden max-h-dvh">
@@ -304,7 +377,10 @@ const Page = () => {
 
           <CardContent className="flex-1 min-h-0">
             <Form {...form}>
-              <form className="flex flex-col md:flex-row gap-6 w-full h-full">
+              <form 
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="flex flex-col md:flex-row gap-6 w-full h-full"
+              >
                 <div className="grid gap-6 w-full md:w-6/12 content-start">
                   <FormField
                     control={form.control}
@@ -460,11 +536,16 @@ const Page = () => {
           </CardContent>
 
           <CardFooter>
-            <Button className="w-full" disabled={isSubmitting} type="submit">
+            <Button 
+              className="w-full" 
+              disabled={isSubmitting} 
+              type="submit"
+              onClick={form.handleSubmit(onSubmit)}
+            >
               {isSubmitting ? (
                 <>
                   <Spinner />
-                  Generating...
+                  Creating Assignment...
                 </>
               ) : (
                 'Create Assignment'

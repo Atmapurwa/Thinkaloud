@@ -92,12 +92,22 @@ import { ExternalLink, FileText, SquarePen } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Item, ItemActions, ItemContent, ItemDescription, ItemFooter, ItemHeader, ItemMedia, ItemTitle } from "@/components/ui/item"
 import Link from "next/link"
+import { deleteAssignment } from "./actions"
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 
 export const schema = z.object({
     id: z.number(),
     title: z.string(),
-    // createdAt: z.date().or(z.string()),
-    createdAt: z.date().safeParse(new Date()),
+    createdAt: z.string(),
     responses: z.number(),
 })
 
@@ -121,7 +131,97 @@ function DragHandle({ id }: { id: number }) {
     )
 }
 
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
+// Actions component with delete functionality
+function ActionsCell({ 
+    assignmentId, 
+    assignmentTitle,
+    onDelete 
+}: { 
+    assignmentId: number
+    assignmentTitle: string
+    onDelete: (id: number) => void 
+}) {
+    const [showDeleteDialog, setShowDeleteDialog] = React.useState(false)
+    const [isDeleting, setIsDeleting] = React.useState(false)
+
+    const handleDelete = async () => {
+        setIsDeleting(true)
+        try {
+            const result = await deleteAssignment(assignmentId)
+            
+            if (result.success) {
+                toast.success('Assignment deleted successfully')
+                onDelete(assignmentId)
+                setShowDeleteDialog(false)
+            } else {
+                toast.error(result.error || 'Failed to delete assignment')
+            }
+        } catch {
+            toast.error('An unexpected error occurred')
+        } finally {
+            setIsDeleting(false)
+        }
+    }
+
+    return (
+        <>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button
+                        variant="ghost"
+                        className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
+                        size="icon"
+                    >
+                        <IconDotsVertical />
+                        <span className="sr-only">Open menu</span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-44">
+                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                    <DropdownMenuItem>
+                        Share with Students <ExternalLink className="ml-auto" size={16} />
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem 
+                        variant="destructive"
+                        onSelect={(e) => {
+                            e.preventDefault()
+                            setShowDeleteDialog(true)
+                        }}
+                    >
+                        Delete
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+
+            <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This will permanently delete the assignment <strong>&ldquo;{assignmentTitle}&rdquo;</strong> and all associated data. This action cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={(e) => {
+                                e.preventDefault()
+                                handleDelete()
+                            }}
+                            disabled={isDeleting}
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                            {isDeleting ? 'Deleting...' : 'Delete'}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+const createColumns = (onDelete: (id: number) => void): ColumnDef<z.infer<typeof schema>>[] => [
     {
         id: "drag",
         header: () => null,
@@ -164,25 +264,12 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     {
         id: "actions",
         header: "Actions",
-        cell: () => (
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button
-                        variant="ghost"
-                        className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
-                        size="icon"
-                    >
-                        <IconDotsVertical />
-                        <span className="sr-only">Open menu</span>
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-44">
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem>Share with Students <ExternalLink absoluteStrokeWidth /></DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+        cell: ({ row }) => (
+            <ActionsCell 
+                assignmentId={row.original.id}
+                assignmentTitle={row.original.title}
+                onDelete={onDelete}
+            />
         ),
     },
 ]
@@ -240,6 +327,13 @@ export function DataTable({
         () => data?.map(({ id }) => id) || [],
         [data]
     )
+
+    // Handle delete - remove from local state (data will refresh from server)
+    const handleDelete = React.useCallback((id: number) => {
+        setData((prevData) => prevData.filter((item) => item.id !== id))
+    }, [])
+
+    const columns = React.useMemo(() => createColumns(handleDelete), [handleDelete])
 
     const table = useReactTable({
         data,

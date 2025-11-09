@@ -2,10 +2,43 @@ import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import React from 'react'
 
-import data from "./data.json"
 import { DataTable } from './data-table'
+import { createClient } from '@/lib/server'
+import { redirect } from 'next/navigation'
 
-const Assignments = () => {
+const Assignments = async () => {
+    const supabase = await createClient()
+    
+    // Get authenticated user
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    
+    if (authError || !user) {
+        redirect('/login')
+    }
+    
+    // Fetch assignments from database for the current user
+    const { data: assignments, error } = await supabase
+        .from('assignments')
+        .select('id, title, created_at, description')
+        .eq('instructor_id', user.id)
+        .order('created_at', { ascending: false })
+    
+    if (error) {
+        console.error('Error fetching assignments:', error)
+    }
+    
+    // Transform data to match the expected schema
+    const transformedData = (assignments || []).map(assignment => ({
+        id: assignment.id,
+        title: assignment.title,
+        createdAt: new Date(assignment.created_at).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        }),
+        responses: 0 // TODO: Count responses from responses table when available
+    }))
+    
     return (
         <section className="h-full flex flex-col mx-auto w-full overflow-hidden max-h-dvh">
             <header className="flex h-16 shrink-0 items-center gap-2 justify-between px-4 relative">
@@ -17,11 +50,8 @@ const Assignments = () => {
             </header>
 
             <div className='overflow-y-auto mb-6'>
-                <DataTable data={data} />
+                <DataTable data={transformedData} />
             </div>
-            {/* <div className="@container/main flex flex-1 flex-col gap-2 overflow-y-scroll py-6">
-            </div> */}
-
         </section>
     )
 }
