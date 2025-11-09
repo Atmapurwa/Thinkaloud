@@ -195,8 +195,8 @@ export default function LandingPage() {
                             }`}
                         >
                           <img
-                            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dsadsadsa.jpg-xTHS4hGwCWp2H5bTj8np6DXZUyrxX7.jpeg"
-                            alt="Schedules Dashboard - Customer Subscription Management"
+                            src="/assets/img/mockup/assignment-creation.png"
+                            alt="Activity creation"
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -207,8 +207,8 @@ export default function LandingPage() {
                             }`}
                         >
                           <img
-                            src="/analytics-dashboard-with-charts-graphs-and-data-vi.jpg"
-                            alt="Analytics Dashboard"
+                            src="/assets/img/mockup/assignment-creation.png"
+                            alt="Activity creation"
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -246,15 +246,16 @@ export default function LandingPage() {
                 <div className="flex-1 px-0 sm:px-2 md:px-0 flex flex-col md:flex-row justify-center items-stretch gap-0">
                   {/* Feature Cards */}
                   <FeatureCard
-                    title="Seamless Activity Creation"
-                    description="Upload a PDF or design an activity from scratch in just minutes."
+                    title="Read and Listen"
+                    description="Enhanced student reading and comprehension of material."
                     isActive={activeCard === 1}
                     progress={activeCard === 1 ? progress : 0}
                     onClick={() => handleCardClick(1)}
                   />
                   <FeatureCard
-                    title="Read and Listen"
-                    description="Enhanced student reading and comprehension of material."
+                    title="Seamless Activity Creation"
+                    description="Upload a PDF or design an activity from scratch in just minutes."
+
                     isActive={activeCard === 0}
                     progress={activeCard === 0 ? progress : 0}
                     onClick={() => handleCardClick(0)}
@@ -435,16 +436,19 @@ export default function LandingPage() {
                           Active Learning
                         </h3>
                         <p className="text-[#605A57] text-sm md:text-base font-normal leading-relaxed font-sans">
-                          Your data is beautifully organized so you see everything clearly without the clutter.
+                          Students learn by speaking, thinking, and engaging with content.
                         </p>
                       </div>
                       <div className="w-full h-[200px] sm:h-[250px] md:h-[300px] rounded-lg flex items-center justify-center overflow-hidden">
-                        <SmartSimpleBrilliant
-                          width="100%"
-                          height="100%"
-                          theme="light"
-                          className="scale-50 sm:scale-65 md:scale-75 lg:scale-90"
+                        <Image
+                          className="w-full h-full object-contain"
+                          src="/assets/img/illustration/active-learning.png"
+                          alt="Active learning"
+                          width={339}
+                          height={347}
+                          priority
                         />
+
                       </div>
                     </div>
 
@@ -455,15 +459,18 @@ export default function LandingPage() {
                           Read and listen
                         </h3>
                         <p className="text-[#605A57] text-sm md:text-base font-normal leading-relaxed font-sans">
-                          Every update flows instantly across your team and keeps collaboration effortless and fast.
+                          Dyslexia-friendly mode with text highlighting and voice playback.
                         </p>
                       </div>
                       <div className="w-full h-[200px] sm:h-[250px] md:h-[300px] rounded-lg flex overflow-hidden text-right items-center justify-center">
-                        <YourWorkInSync
-                          width="400"
-                          height="250"
-                          theme="light"
-                          className="scale-60 sm:scale-75 md:scale-90"
+
+                        <Image
+                          className="w-full h-full object-contain"
+                          src="/assets/img/illustration/read-aloud.png"
+                          alt="read and listen"
+                          width={4080}
+                          height={2210}
+                          priority
                         />
                       </div>
                     </div>
@@ -472,15 +479,23 @@ export default function LandingPage() {
                     <div className="border-r-0 md:border-r border-[rgba(55,50,47,0.12)] p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-start items-start gap-4 sm:gap-6 bg-transparent">
                       <div className="flex flex-col gap-2">
                         <h3 className="text-[#37322F] text-lg sm:text-xl font-semibold leading-tight font-sans">
-                          Create and Assess with Ease
+                          Auto Evaluate
                         </h3>
                         <p className="text-[#605A57] text-sm md:text-base font-normal leading-relaxed font-sans">
-                          All your favorite tools connect in one place and work together seamlessly by design.
+                          AI helps teachers grade faster and more accurately.
                         </p>
                       </div>
                       <div className="w-full h-[200px] sm:h-[250px] md:h-[300px] rounded-lg flex overflow-hidden justify-center items-center relative bg-transparent">
                         <div className="w-full h-full flex items-center justify-center bg-transparent">
-                          <EffortlessIntegration width={400} height={250} className="max-w-full max-h-full" />
+                          <Image
+                            className="w-full h-full object-contain"
+                            src="/assets/img/illustration/auto-evaluate.png"
+                            alt="auto evaluate"
+                            width={511}
+                            height={538}
+                            priority
+                          />
+                          {/* <EffortlessIntegration width={400} height={250} className="max-w-full max-h-full" /> */}
                         </div>
                         {/* Gradient mask for soft bottom edge */}
                         <div className="absolute bottom-0 left-0 right-0 h-8 bg-linear-to-t from-[#F7F5F3] to-transparent pointer-events-none"></div>
@@ -494,16 +509,25 @@ export default function LandingPage() {
                           Ensure Original, Authentic Work
                         </h3>
                         <p className="text-[#605A57] text-sm md:text-base font-normal leading-relaxed font-sans">
-                          Track growth with precision and turn raw data into confident decisions you can trust.
+                          Voice-based answers ensure genuine and plagiarism-free learning.
                         </p>
                       </div>
                       <div className="w-full h-[200px] sm:h-[250px] md:h-[300px] rounded-lg flex overflow-hidden items-center justify-center relative">
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <NumbersThatSpeak
+                          {/* <NumbersThatSpeak
                             width="100%"
                             height="100%"
                             theme="light"
                             className="w-full h-full object-contain"
+                          /> */}
+
+                          <Image
+                            className="w-full h-full object-contain"
+                            src="/assets/img/illustration/original-authentic.png"
+                            alt="original and authentic"
+                            width={488}
+                            height={348}
+                            priority
                           />
                         </div>
                         {/* Gradient mask for soft bottom edge */}

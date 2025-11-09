@@ -38,8 +38,8 @@ export default async function Page({
                 </div>
 
                 <Item variant="outline">
-                    <div className="grid bg-gray-100 rounded border gap-y-2 p-6 text-center">
-                        <h3 className="text-3xl">1</h3>
+                    <div className="grid bg-primary-foreground text-primary font-bold rounded border gap-y-2 p-6 text-center">
+                        <h3 className="text-3xl">5</h3>
                         <p>Responses</p>
                     </div>
                     <Separator orientation="vertical" />

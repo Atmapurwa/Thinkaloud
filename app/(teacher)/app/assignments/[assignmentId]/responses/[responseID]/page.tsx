@@ -22,7 +22,7 @@ export default async function Page({
             </header>
 
             <div className="@container/main flex flex-1 flex-col gap-6 overflow-auto p-6">
-                <h3 className="font-bold text-xl">Naufal Response</h3>
+                <h3 className="font-bold text-xl">Ejenia Response</h3>
                 <Card className="bg-primary-foreground">
                     <CardHeader>
                         <CardTitle className="flex gap-x-2"><Zap className="size-4" /> Summary</CardTitle>
