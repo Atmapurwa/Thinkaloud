@@ -1,5 +1,5 @@
 'use client'
-import { handleSignInWithGoogle, login, signup } from "./action";
+import { handleSignInWithGoogle} from "./action";
 
 import Link from "next/link"
 
