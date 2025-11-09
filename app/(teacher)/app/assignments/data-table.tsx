@@ -96,8 +96,7 @@ import Link from "next/link"
 export const schema = z.object({
     id: z.number(),
     title: z.string(),
-    // createdAt: z.date().or(z.string()),
-    createdAt: z.date().safeParse(new Date()),
+    createdAt: z.string(),
     responses: z.number(),
 })
 
