@@ -23,14 +23,14 @@ export default async function Page({
 
             <div className="@container/main flex flex-1 flex-col gap-6 overflow-auto p-6">
                 <h3 className="font-bold text-xl">Naufal Response</h3>
-                <Card>
+                <Card className="bg-primary-foreground">
                     <CardHeader>
                         <CardTitle className="flex gap-x-2"><Zap className="size-4" /> Summary</CardTitle>
-                        <CardDescription>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt reiciendis consequuntur nihil? Facilis incidunt quisquam, perspiciatis repudiandae veritatis minima, magni quidem explicabo ipsa ducimus corrupti tenetur tempora quod molestiae quas nobis exercitationem veniam reprehenderit! Vero, in blanditiis sapiente veritatis distinctio omnis illum, quos architecto sunt voluptates ducimus debitis! Distinctio laborum doloremque amet, excepturi laudantium necessitatibus explicabo molestias, maiores adipisci repellat iste, recusandae minima reiciendis aliquid unde. Recusandae maiores, asperiores officia odit dolor labore illum eaque possimus temporibus corrupti iure quam vel optio! Dicta recusandae beatae ad adipisci blanditiis nisi provident corporis ducimus,imos possimus aliquid neque. Ipsa, a?</CardDescription>
+                        <CardDescription>The student demonstrated a clear understanding of basic scientific concepts such as living and non-living things, forces, and the importance of observation in science. Their explanation was written in complete sentences and used age-appropriate vocabulary. The response showed curiosity and effort in connecting science to everyday life, though a few examples could be more detailed.</CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    {/* <CardContent>
                         <p>Card Content</p>
-                    </CardContent>
+                    </CardContent> */}
                 </Card>
 
                 <Card>
@@ -38,31 +38,36 @@ export default async function Page({
                         <CardTitle className="flex gap-x-2"><BadgeCheckIcon className="size-4" /> Specifications</CardTitle>
                     </CardHeader>
                     <CardContent className="grid gap-y-4">
-                        <Item variant="outline" size="sm">
+                        <Item variant="outline" size="sm" className="bg-primary-foreground text-primary">
                             <ItemMedia>
                                 <CircleCheck className="size-4" />
                             </ItemMedia>
                             <ItemContent>
-                                <ItemDescription>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat dolorem laudantium consequatur ipsam est. Molestiae temporibus illum ex, reiciendis eos libero nulla facilis deserunt ipsam, modi quod doloribus, recusandae facere?
+                                <ItemDescription className="text-primary">
+                                    Comprehension: The student accurately explained the main ideas and demonstrated an understanding of simple scientific principles.
                                 </ItemDescription>
                             </ItemContent>
-                            {/* <ItemActions>
-                                    <ChevronRightIcon className="size-4" />
-                                </ItemActions> */}
+
                         </Item>
-                        <Item variant="outline" size="sm">
+                        <Item variant="outline" size="sm" className="bg-primary-foreground text-primary">
                             <ItemMedia>
                                 <CircleQuestionMark className="size-4" />
                             </ItemMedia>
                             <ItemContent>
-                                <ItemDescription>
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel sint maiores deleniti voluptates ullam nam atque nobis culpa iure ipsum, delectus suscipit nesciunt sit numquam, ratione iste quos a facere earum. Odio nemo, pariatur corrupti perspiciatis aperiam reiciendis optio aspernatur?
+                                <ItemDescription className="text-primary">
+                                    Clarity and Expression: Sentences were clear and well-structured, with minor grammatical errors that did not affect meaning.
                                 </ItemDescription>
                             </ItemContent>
-                            {/* <ItemActions>
-                                    <ChevronRightIcon className="size-4" />
-                                </ItemActions> */}
+                        </Item>
+                        <Item variant="outline" size="sm" className="bg-amber-100 text-amber-700">
+                            <ItemMedia>
+                                <CircleQuestionMark className="size-4" />
+                            </ItemMedia>
+                            <ItemContent>
+                                <ItemDescription className="text-amber-700">
+                                    Application: The student related science concepts to real-world examples, showing the ability to apply classroom learning to daily experiences.
+                                </ItemDescription>
+                            </ItemContent>
                         </Item>
 
                     </CardContent>

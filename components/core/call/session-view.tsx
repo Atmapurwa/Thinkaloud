@@ -41,9 +41,9 @@ export const SessionView = ({
     });
 
     const data = [
-        { question: 'lorem ipmdsfafd afda fjdlkasfj alkf jal kadfj alj lfjalkfj akldalkdsjf adf jj;adj ;', no: 1 },
-        { question: 'ini adalah soal no 2', no: 2 },
-        { question: 'ini adalah soal no 3', no: 3 },
+        { question: 'Name three things that plants need to grow. Explain why each one is important.;', no: 1 },
+        { question: 'Water can be a solid, liquid, or gas. Give an example of when you see water in each of these forms.', no: 2 },
+        { question: 'Why is it important to reduce, reuse, and recycle? Give two examples of how you can help protect the Earth.', no: 3 },
     ];
 
     useEffect(() => {
@@ -79,7 +79,7 @@ export const SessionView = ({
             )}
         >
 
-            <h2 className='font-bold text-2xl mb-2'>Judul Assignment</h2>
+            <h2 className='font-bold text-2xl mb-2 text-center'>Learning About Nature and the Earth</h2>
             <Dialog>
                 <DialogTrigger asChild className='mb-4'>
                     <Button size={'sm'} variant="outline" className='text-xs'>

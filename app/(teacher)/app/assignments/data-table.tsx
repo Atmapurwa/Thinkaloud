@@ -360,7 +360,7 @@ export function DataTable({
                                         </ItemDescription>
                                     </ItemContent>
                                     <ItemActions>
-                                        <Button variant="outline" size="sm" asChild>
+                                        <Button variant="default" size="sm" asChild>
                                             <Link href="/app/assignments/create/pdf">Create from PDF</Link>
                                         </Button>
                                     </ItemActions>
